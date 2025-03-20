@@ -1,0 +1,64 @@
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.todo-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  width: 50vw;
+}
+
+.todo-list {
+  width: 100%;
+  padding-left: 0;
+}
+
+.todo-list li {
+  list-style-type: none;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: larger;
+}
+
+.todo-item[data-checked="true"] {
+  text-decoration: line-through;
+}
+
+.todo-button-group {
+  display: inline-block;
+}
+
+.todo-control {
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.todo-done-button {
+  background-color: #1c793d;
+
+}
+
+.todo-remove-button {
+  background-color: #822525;
+}

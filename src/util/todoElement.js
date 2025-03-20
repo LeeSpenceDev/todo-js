@@ -1,16 +1,32 @@
-import { getTodos, addTodo, deleteTodo } from '../state';
+import { getTodos, addTodo, deleteTodo, checkTodo } from '../state';
 
 const { todoInput, todoButton, todoList } = selectElements();
 
 export function createTodoElement(todo) {
-  const button = document.createElement('button');
-  button.textContent = 'Remove';
-  button.setAttribute('data-id', todo.id);
+
+  const buttonGroup = document.createElement('div');
+  buttonGroup.className = 'todo-button-group';
+
+  const doneButton = document.createElement('button');
+  doneButton.textContent = '✓';
+  doneButton.setAttribute('data-id', todo.id);
+  doneButton.className = 'todo-control todo-done-button';
+
+  const removeButton = document.createElement('button');
+  removeButton.textContent = '✕';
+  removeButton.setAttribute('data-id', todo.id);
+  removeButton.className = 'todo-control todo-remove-button';
+
+  buttonGroup.appendChild(doneButton);
+  buttonGroup.appendChild(removeButton);
 
   const div = document.createElement('div');
   div.textContent = todo.text + ' ';
-  div.id = `todo-${todo.id}`;
-  div.appendChild(button);
+  div.id = `${todo.id}`;
+  div.className = 'todo-item';
+  div.setAttribute('data-checked', todo.checked);
+
+  div.appendChild(buttonGroup);
 
   const todoElement = document.createElement('li');
   todoElement.appendChild(div);
@@ -51,20 +67,25 @@ function onAddTodo() {
   render();
 }
 
-function onDeleteTodo(e) {
+function onTodoClick(e) {
   console.log('[deleteTodo] event', e);
 
   const todo = e.target.getAttribute('data-id');
+  const isDelete = e.target.className.includes('todo-remove-button');
   if (!todo) {
     return;
   }
 
-  deleteTodo(todo);
+  if (isDelete) {
+    deleteTodo(todo);
+  } else {
+    checkTodo(todo);
+  }
 
   render();
 }
 
 export function subscribeToEvents() {
   todoButton.addEventListener('click', onAddTodo);
-  todoList.addEventListener('click', onDeleteTodo);
+  todoList.addEventListener('click', onTodoClick);
 }
